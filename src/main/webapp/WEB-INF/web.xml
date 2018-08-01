@@ -1,0 +1,48 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <display-name>Archetype Created Web Application</display-name>
+
+  <servlet>
+    <servlet-name>AccessTest</servlet-name>
+    <servlet-class>handson.AccessTestServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Select</servlet-name>
+    <servlet-class>handson.SelectServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Insert</servlet-name>
+    <servlet-class>handson.InsertServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>Root</servlet-name>
+    <jsp-file>/root.jsp</jsp-file>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>AccessTest</servlet-name>
+    <url-pattern>/accesstest</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Select</servlet-name>
+    <url-pattern>/select</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Insert</servlet-name>
+    <url-pattern>/insert</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>Root</servlet-name>
+    <url-pattern>/root</url-pattern>
+  </servlet-mapping>
+
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+</web-app>
+
