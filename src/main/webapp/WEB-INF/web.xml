@@ -17,10 +17,21 @@
     <servlet-name>Insert</servlet-name>
     <servlet-class>handson.InsertServlet</servlet-class>
   </servlet>
-
   <servlet>
-    <servlet-name>Root</servlet-name>
-    <jsp-file>/root.jsp</jsp-file>
+    <servlet-name>SelectRow</servlet-name>
+    <servlet-class>handson.SelectRowServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Update</servlet-name>
+    <servlet-class>handson.UpdateServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Delete</servlet-name>
+    <servlet-class>handson.DeleteServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>SelectBySql</servlet-name>
+    <servlet-class>handson.SelectBySqlServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
@@ -32,13 +43,24 @@
     <url-pattern>/select</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
+    <servlet-name>SelectRow</servlet-name>
+    <url-pattern>/selectRow</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
     <servlet-name>Insert</servlet-name>
     <url-pattern>/insert</url-pattern>
   </servlet-mapping>
-
   <servlet-mapping>
-    <servlet-name>Root</servlet-name>
-    <url-pattern>/root</url-pattern>
+    <servlet-name>Update</servlet-name>
+    <url-pattern>/update</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Delete</servlet-name>
+    <url-pattern>/delete</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SelectBySql</servlet-name>
+    <url-pattern>/selectBySql</url-pattern>
   </servlet-mapping>
 
   <welcome-file-list>

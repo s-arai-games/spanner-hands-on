@@ -8,11 +8,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.cloud.spanner.DatabaseClient;
 import com.google.cloud.spanner.DatabaseId;
-import com.google.cloud.spanner.ReadOnlyTransaction;
+import com.google.cloud.spanner.KeySet;
+import com.google.cloud.spanner.ReadContext;
 import com.google.cloud.spanner.ResultSet;
 import com.google.cloud.spanner.Spanner;
+import com.google.cloud.spanner.SpannerException;
 import com.google.cloud.spanner.SpannerOptions;
-import com.google.cloud.spanner.Statement;
+import com.google.common.collect.Lists;
 
 import mapper.User;
 import settings.SpannerSetting;
@@ -27,20 +29,23 @@ public class SelectServlet extends HttpServlet {
     SpannerOptions options = builder.build();
     Spanner spanner = options.getService();
 
-    DatabaseId db = DatabaseId.of(SpannerSetting.PROJECT_ID, SpannerSetting.INSTANCE_ID, SpannerSetting.DATABASE_ID);
-    DatabaseClient client = spanner.getDatabaseClient(db);
-    ReadOnlyTransaction readContext = client.readOnlyTransaction();
+    try{
+      DatabaseId db = DatabaseId.of(SpannerSetting.PROJECT_ID, SpannerSetting.INSTANCE_ID, SpannerSetting.DATABASE_ID);
+      DatabaseClient client = spanner.getDatabaseClient(db);
 
-    Statement statement = Statement.newBuilder("SELECT * FROM user WHERE true").build();
-    ResultSet resultSet = readContext.executeQuery(statement);
+      ReadContext readContext = client.singleUse();
+      ResultSet resultSet = readContext.read("user", KeySet.all(), Lists.newArrayList("user_id", "name"));
 
-    while(resultSet.next()){
-      User user = new User(resultSet);
-      resp.getWriter().println("user:" + user);
+      while(resultSet.next()){
+        User user = new User(resultSet);
+        resp.getWriter().println("user:" + user);
+      }
+      spanner.close();
+    }catch(SpannerException e){
+      resp.getWriter().println("exception error occurred. [detail]:" + e);
     }
 
     resp.getWriter().println("Select Servlet.");
-    spanner.close();
   }
 
 }

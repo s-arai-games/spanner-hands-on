@@ -8,15 +8,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.cloud.spanner.DatabaseClient;
 import com.google.cloud.spanner.DatabaseId;
+import com.google.cloud.spanner.Key;
 import com.google.cloud.spanner.ReadContext;
 import com.google.cloud.spanner.Spanner;
 import com.google.cloud.spanner.SpannerException;
 import com.google.cloud.spanner.SpannerOptions;
+import com.google.cloud.spanner.Struct;
+import com.google.common.collect.Lists;
 
+import mapper.User;
 import settings.SpannerSetting;
 
 @SuppressWarnings("serial")
-public class AccessTestServlet extends HttpServlet {
+public class SelectRowServlet extends HttpServlet {
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
     resp.setContentType("text/plain");
@@ -29,19 +33,18 @@ public class AccessTestServlet extends HttpServlet {
       DatabaseId db = DatabaseId.of(SpannerSetting.PROJECT_ID, SpannerSetting.INSTANCE_ID, SpannerSetting.DATABASE_ID);
       DatabaseClient client = spanner.getDatabaseClient(db);
 
-      resp.getWriter().println("db:" + db);
-      resp.getWriter().println("client:" + client);
-
-      // この時点ではまだCloudSpannerへのアクセスは行っていない
-
+      long userId = 2018080400123456L;
       ReadContext readContext = client.singleUse();
-      resp.getWriter().println("readContext:" + readContext);
+      Struct result = readContext.readRow("user", Key.of(userId), Lists.newArrayList("user_id", "name"));
+
+      User user = new User(result.getLong("user_id"), result.getString("name"));
+      resp.getWriter().println("user:" + user);
       spanner.close();
     }catch(SpannerException e){
       resp.getWriter().println("exception error occurred. [detail]:" + e);
     }
 
-    resp.getWriter().println("AccessTest Servlet.");
+    resp.getWriter().println("Select Servlet.");
   }
 
 }
