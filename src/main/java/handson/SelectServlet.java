@@ -35,16 +35,15 @@ public class SelectServlet extends HttpServlet {
 
       ReadContext readContext = client.singleUse();
       ResultSet resultSet = readContext.read("user", KeySet.all(), Lists.newArrayList("user_id", "name"));
-
       while(resultSet.next()){
         User user = new User(resultSet);
         resp.getWriter().println("user:" + user);
       }
+
       spanner.close();
     }catch(SpannerException e){
       resp.getWriter().println("exception error occurred. [detail]:" + e);
     }
-
     resp.getWriter().println("Select Servlet.");
   }
 

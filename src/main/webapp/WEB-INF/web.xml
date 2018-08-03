@@ -33,6 +33,10 @@
     <servlet-name>SelectBySql</servlet-name>
     <servlet-class>handson.SelectBySqlServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>Transaction</servlet-name>
+    <servlet-class>handson.TransactionServlet</servlet-class>
+  </servlet>
 
   <servlet-mapping>
     <servlet-name>AccessTest</servlet-name>
@@ -61,6 +65,10 @@
   <servlet-mapping>
     <servlet-name>SelectBySql</servlet-name>
     <url-pattern>/selectBySql</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Transaction</servlet-name>
+    <url-pattern>/transaction</url-pattern>
   </servlet-mapping>
 
   <welcome-file-list>
