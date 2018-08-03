@@ -36,8 +36,8 @@ public class IndexServlet extends HttpServlet {
       ReadContext readContext = client.singleUse();
       ResultSet resultSet = readContext.readUsingIndex("user_favorite", "idx_favorite_id", KeySet.all(), Lists.newArrayList("user_id", "favorite_id"));
       while(resultSet.next()){
-//        UserFavorite userFavorite = new UserFavorite(resultSet);
-        UserFavorite userFavorite = new UserFavorite(resultSet.getLong("user_id"), resultSet.getLong("favorite_id"));
+        UserFavorite userFavorite = new UserFavorite(resultSet);
+//        UserFavorite userFavorite = new UserFavorite(resultSet.getLong("user_id"), resultSet.getLong("favorite_id"));
         resp.getWriter().println("userFavorite:" + userFavorite);
       }
 
