@@ -42,12 +42,12 @@ public class SelectRowServlet extends HttpServlet {
 
       User user = new User(result.getLong("user_id"), result.getString("name"));
       resp.getWriter().println("user:" + user);
-      spanner.close();
-    }catch(SpannerException e){
+    } catch(SpannerException e)  {
       resp.getWriter().println("exception error occurred. [detail]:" + e);
+    } finally {
+    	  spanner.close();
     }
 
     resp.getWriter().println("Select Servlet.");
   }
-
 }

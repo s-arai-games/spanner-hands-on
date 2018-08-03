@@ -30,20 +30,25 @@ public class SelectBySqlServlet extends HttpServlet {
     SpannerOptions options = builder.build();
     Spanner spanner = options.getService();
 
-    DatabaseId db = DatabaseId.of(SpannerSetting.PROJECT_ID, SpannerSetting.INSTANCE_ID, SpannerSetting.DATABASE_ID);
-    DatabaseClient client = spanner.getDatabaseClient(db);
-    ReadContext readContext = client.singleUse();
+    try {
+      DatabaseId db = DatabaseId.of(SpannerSetting.PROJECT_ID, SpannerSetting.INSTANCE_ID, SpannerSetting.DATABASE_ID);
+      DatabaseClient client = spanner.getDatabaseClient(db);
+      ReadContext readContext = client.singleUse();
 
-    Statement statement = Statement.newBuilder("SELECT * FROM user WHERE true").build();
-    ResultSet resultSet = readContext.executeQuery(statement);
+      Statement statement = Statement.newBuilder("SELECT * FROM user WHERE true").build();
+      ResultSet resultSet = readContext.executeQuery(statement);
 
-    while(resultSet.next()){
-      User user = new User(resultSet);
-      resp.getWriter().println("user:" + user);
+      while(resultSet.next()){
+        User user = new User(resultSet);
+        resp.getWriter().println("user:" + user);
+      }
+
+    } catch(Exception e) {
+      resp.getWriter().println("exception error occurred. [detail]:" + e);
+    } finally {
+      spanner.close();
     }
 
     resp.getWriter().println("Select Servlet.");
-    spanner.close();
   }
-
 }

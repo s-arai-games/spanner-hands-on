@@ -31,7 +31,7 @@ public class DeleteServlet extends HttpServlet {
     SpannerOptions options = builder.build();
     Spanner spanner = options.getService();
 
-    try{
+    try {
       DatabaseId db = DatabaseId.of(SpannerSetting.PROJECT_ID, SpannerSetting.INSTANCE_ID, SpannerSetting.DATABASE_ID);
       DatabaseClient client = spanner.getDatabaseClient(db);
 
@@ -41,12 +41,12 @@ public class DeleteServlet extends HttpServlet {
 
       ArrayList<Mutation> mutations = Lists.newArrayList(mutation);
       client.write(mutations);
-      spanner.close();
-    }catch(SpannerException e){
+    } catch(SpannerException e) {
       resp.getWriter().println("exception error occurred. [detail]:" + e);
+    } finally {
+      spanner.close();
     }
 
     resp.getWriter().println("Delete Servlet.");
   }
-
 }

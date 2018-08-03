@@ -32,7 +32,7 @@ public class SelectServlet extends HttpServlet {
     SpannerOptions options = builder.build();
     Spanner spanner = options.getService();
 
-    try{
+    try {
       DatabaseId db = DatabaseId.of(SpannerSetting.PROJECT_ID, SpannerSetting.INSTANCE_ID, SpannerSetting.DATABASE_ID);
       DatabaseClient client = spanner.getDatabaseClient(db);
 
@@ -42,12 +42,12 @@ public class SelectServlet extends HttpServlet {
         User user = new User(resultSet);
         resp.getWriter().println("user:" + user);
       }
-
-      spanner.close();
-    }catch(SpannerException e){
+    } catch(SpannerException e) {
       resp.getWriter().println("exception error occurred. [detail]:" + e);
+    } finally {
+    	  spanner.close();
     }
+
     resp.getWriter().println("Select Servlet.");
   }
-
 }

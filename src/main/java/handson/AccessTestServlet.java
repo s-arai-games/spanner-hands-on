@@ -39,12 +39,12 @@ public class AccessTestServlet extends HttpServlet {
 
       ReadContext readContext = client.singleUse();
       resp.getWriter().println("readContext:" + readContext);
-      spanner.close();
-    }catch(SpannerException e){
+    } catch(SpannerException e) {
       resp.getWriter().println("exception error occurred. [detail]:" + e);
+    } finally {
+    	  spanner.close();
     }
 
     resp.getWriter().println("AccessTest Servlet.");
   }
-
 }
