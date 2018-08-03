@@ -19,6 +19,11 @@ public class UserFavorite {
     this.setFavoriteThing(resultSet.isNull("favorite_thing") ? null : resultSet.getString("favorite_thing"));
   }
 
+  public UserFavorite(long userId, long favoriteId){
+    this.setUserId(userId);
+    this.setFavoriteId(favoriteId);
+  }
+
   private long userId;
   private long favoriteId;
   private String favoriteThing;

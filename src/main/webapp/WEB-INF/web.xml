@@ -37,6 +37,14 @@
     <servlet-name>Transaction</servlet-name>
     <servlet-class>handson.TransactionServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>Index</servlet-name>
+    <servlet-class>handson.IndexServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Storing</servlet-name>
+    <servlet-class>handson.StoringServlet</servlet-class>
+  </servlet>
 
   <servlet-mapping>
     <servlet-name>AccessTest</servlet-name>
@@ -69,6 +77,14 @@
   <servlet-mapping>
     <servlet-name>Transaction</servlet-name>
     <url-pattern>/transaction</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Index</servlet-name>
+    <url-pattern>/index</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Storing</servlet-name>
+    <url-pattern>/storing</url-pattern>
   </servlet-mapping>
 
   <welcome-file-list>
