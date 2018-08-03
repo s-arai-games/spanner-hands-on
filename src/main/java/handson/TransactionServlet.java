@@ -1,5 +1,6 @@
 package handson;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.spanner.DatabaseClient;
 import com.google.cloud.spanner.DatabaseId;
 import com.google.cloud.spanner.Key;
@@ -30,6 +32,7 @@ public class TransactionServlet extends HttpServlet {
     resp.setContentType("text/plain");
 
     SpannerOptions.Builder builder = SpannerOptions.newBuilder();
+    builder.setCredentials(GoogleCredentials.fromStream(new FileInputStream(SpannerSetting.CREDENTIAL_PATH)));
     SpannerOptions options = builder.build();
     Spanner spanner = options.getService();
 
