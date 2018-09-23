@@ -2,7 +2,13 @@ package mapper;
 
 import com.google.cloud.spanner.ResultSet;
 
+
 public class UserFavorite {
+
+  @Override
+  public String toString() {
+    return "UserFavorite [userId=" + userId + ", favoriteId=" + favoriteId + ", favoriteThing=" + favoriteThing + "]";
+  }
 
   public UserFavorite(ResultSet resultSet){
     this.setUserId(resultSet.getLong("user_id"));

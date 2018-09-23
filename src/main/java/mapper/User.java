@@ -4,6 +4,11 @@ import com.google.cloud.spanner.ResultSet;
 
 public class User {
 
+  @Override
+  public String toString() {
+    return "User [userId=" + userId + ", name=" + name + "]";
+  }
+
   public User(ResultSet resultSet){
     this.setUserId(resultSet.getLong("user_id"));
     this.setName(resultSet.isNull("name") ? null : resultSet.getString("name"));
